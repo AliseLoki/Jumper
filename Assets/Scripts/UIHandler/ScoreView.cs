@@ -8,16 +8,16 @@ public class ScoreView : MonoBehaviour
 
     private void OnEnable()
     {
-        _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformSpawned;
+        _platformsController.ScoreChanged += OnScoreChanged;
     }
 
     private void OnDisable()
     {
-        _platformsController.PlatformHasSpawnedOnAxisX -= OnPlatformSpawned;
+        _platformsController.ScoreChanged += OnScoreChanged;
     }
 
-    private void OnPlatformSpawned(bool isSpawned)
+    private void OnScoreChanged(float score)
     {
-        _text.text = "Score: " + _platformsController.PlatformsAmount.ToString();
+        _text.text = "Score: " + score.ToString();
     }
 }

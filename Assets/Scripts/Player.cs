@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpPower = 3;
     [SerializeField] private int _minJumpPower = 3;
     [SerializeField] private int _maxJumpPower = 13;
-    [SerializeField] private float _pauseBetweenIncreasingJumpPower = 0.3f;
+    [SerializeField] private float _pauseBetweenIncreasingJumpPower = 0.2f;
     [SerializeField] private float _duration = 1;
     [SerializeField] private float _jumpHeight = 3;
 
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
     private Coroutine _coroutine;
 
     public event Action<float> JumpPowerChanged;
-    public event Action PlayerHasJumped;
+    public event Action<Interactable> CollectablesAmountChanged;
 
     public float JumpPower => _jumpPower;
 
@@ -58,6 +59,21 @@ public class Player : MonoBehaviour
         if (collision.collider.TryGetComponent(out Ground ground)) _isGrounded = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.TryGetComponent(out Crystall crystall))
+        {
+            crystall.gameObject.SetActive(false);
+            CollectablesAmountChanged?.Invoke(crystall);
+        }
+
+        if (other.TryGetComponent(out Coin coin))
+        {
+            coin.gameObject.SetActive(false);
+            CollectablesAmountChanged?.Invoke(coin);
+        }
+    }
+
     private void OnPlatformSpawned(bool isTrue)
     {
         _isJumpingOnAxisX = isTrue;
@@ -86,7 +102,6 @@ public class Player : MonoBehaviour
             transform.position.z + jumpPowerZ), _jumpHeight, NumJumps, _duration);
         if (_coroutine != null) StopCoroutine(_coroutine);
         SetDefaultNumberOfJumpPower();
-        PlayerHasJumped?.Invoke();
     }
 
     private IEnumerator JumpPowerIncreaser()
@@ -94,17 +109,14 @@ public class Player : MonoBehaviour
         while (!Input.GetMouseButtonUp(0))
         {
             var newJumpPower = Mathf.Clamp(_jumpPower++, _minJumpPower, _maxJumpPower);
-           // Debug.Log(newJumpPower);
             JumpPowerChanged?.Invoke(newJumpPower);
             yield return new WaitForSeconds(_pauseBetweenIncreasingJumpPower);
         }
-
-        yield break;
     }
 
     private void SetDefaultNumberOfJumpPower()
     {
-        _jumpPower = 0;
+        _jumpPower = 3;
         JumpPowerChanged?.Invoke(_jumpPower);
     }
 }
