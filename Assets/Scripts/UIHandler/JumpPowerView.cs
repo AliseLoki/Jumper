@@ -8,12 +8,12 @@ public class JumpPowerView : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.JumpPowerChanged += OnPlayerJumpPowerIncreased;
+        _player.JumpHandler.JumpPowerChanged += OnPlayerJumpPowerIncreased;
     }
 
     private void OnDisable()
     {
-        _player.JumpPowerChanged -= OnPlayerJumpPowerIncreased;
+        _player.JumpHandler.JumpPowerChanged -= OnPlayerJumpPowerIncreased;
     }
 
     private void OnPlayerJumpPowerIncreased(float jumpPower)

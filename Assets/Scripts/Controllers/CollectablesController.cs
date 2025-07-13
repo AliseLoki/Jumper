@@ -32,11 +32,13 @@ public class CollectablesController : MonoBehaviour
     private void SpawnTemplate(List<Interactable> pool, Interactable template)
     {
         var newTemplate = _pool.GetPooledObject(pool, template);
-
-        Vector3 newPos = new Vector3(_platformsController.Center.x, _platformsController.Center.y + 4,
-            _platformsController.Center.z);
-
-        newTemplate.transform.position = newPos;
+        newTemplate.transform.position = CalculateCollectablePosition();
         newTemplate.gameObject.SetActive(true);
+    }
+
+    private Vector3 CalculateCollectablePosition()
+    {
+        return new Vector3(_platformsController.Center.x, _platformsController.Center.y + 4,
+            _platformsController.Center.z);
     }
 }

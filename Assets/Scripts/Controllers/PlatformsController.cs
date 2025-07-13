@@ -52,17 +52,20 @@ public class PlatformsController : MonoBehaviour
 
     private void TakePlatformFromPool(float offsetX, float offsetZ)
     {
-        Vector3 newPosition = new Vector3(_currentPlatform.transform.position.x + offsetX,
-           _currentPlatform.transform.position.y, _currentPlatform.transform.position.z + offsetZ);
-
         Platform platform = _objectsPool.GetPooledObject(_objectsPool.Platforms, _objectsPool.PlatformToPool) as Platform;
-        platform.transform.position = newPosition;
+        platform.transform.position = CalculatePlatformPosition(offsetX,offsetZ);
         platform.gameObject.SetActive(true);
         _previousPlatform = _currentPlatform;
         _currentPlatform = platform;
         _currentPlatform.ScoreChanged += OnScoreChanged;
         _currentPlatform.PlayerJumpedOnPlatform += OnPlayerHasJumped;
         _centerBetweenCurrentAndPreviousPlatform = CalculateDistanceBetweenPlatforms();
+    }
+
+    private Vector3 CalculatePlatformPosition(float offsetX, float offsetZ)
+    {
+        return new Vector3(_currentPlatform.transform.position.x + offsetX,
+           _currentPlatform.transform.position.y, _currentPlatform.transform.position.z + offsetZ);
     }
 
     private Vector3 CalculateDistanceBetweenPlatforms()

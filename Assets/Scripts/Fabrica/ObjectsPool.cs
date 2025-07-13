@@ -11,6 +11,8 @@ public class ObjectsPool : MonoBehaviour
     [SerializeField] private Interactable _coinToPool;
     [SerializeField] private Interactable _platformToPool;
 
+    [SerializeField] private Fabrica _fabrica;
+
     [SerializeField] private int _amountToPool = 5;
 
     public Interactable CrystalToPool => _crystalToPool;
@@ -53,7 +55,7 @@ public class ObjectsPool : MonoBehaviour
 
     private Interactable Create(List<Interactable> pool, Interactable prefab)
     {
-        Interactable template = Instantiate(prefab, transform);
+        Interactable template = _fabrica.CreatePrefab(prefab, Quaternion.identity, transform);
         template.gameObject.SetActive(false);
         pool.Add(template);
         return template;

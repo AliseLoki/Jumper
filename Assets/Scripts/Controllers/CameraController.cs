@@ -3,6 +3,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Player _player;
+    [SerializeField] private ShopView _shopView;
+
+    [SerializeField] private Vector3 _offsetForOpenShop;
 
     private Vector3 _offset;
 
@@ -13,7 +16,19 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        FollowPlayer();
+        if (_shopView.gameObject.activeSelf)
+        {
+            ShowPlayerOnTheLeft();
+        }
+        else
+        {
+            FollowPlayer();
+        }
+    }
+
+    private void ShowPlayerOnTheLeft()
+    {
+        transform.position = _player.transform.position + _offsetForOpenShop;
     }
 
     private void FollowPlayer()
