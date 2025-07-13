@@ -7,8 +7,7 @@ public class JumpHandler : MonoBehaviour
 {
     private const int NumJumps = 1;
 
-    [SerializeField] private float _jumpPower = 3;
-    [SerializeField] private float _defaultJumpPower = 3;
+    [SerializeField] private int _jumpPower = 3;
     [SerializeField] private int _minJumpPower = 3;
     [SerializeField] private int _maxJumpPower = 13;
     [SerializeField] private float _pauseBetweenIncreasingJumpPower = 0.2f;
@@ -50,15 +49,33 @@ public class JumpHandler : MonoBehaviour
     {
         while (!Input.GetMouseButtonUp(0))
         {
-            var newJumpPower = Mathf.Clamp(_jumpPower++, _minJumpPower, _maxJumpPower);
-            JumpPowerChanged?.Invoke(newJumpPower);
-            yield return new WaitForSeconds(_pauseBetweenIncreasingJumpPower);
+            _player.SoundController.PlaySound(SoundName.JumpPowerUp.ToString());
+
+            for (int i = _minJumpPower; i <= _maxJumpPower; i++)
+            {
+                SetJumpPower(i);
+                yield return new WaitForSeconds(_pauseBetweenIncreasingJumpPower);
+            }
+
+            _player.SoundController.PlaySound(SoundName.JumpPowerDown.ToString());
+
+            for (int i = _maxJumpPower; i >= _minJumpPower; i--)
+            {
+                SetJumpPower(i);
+                yield return new WaitForSeconds(_pauseBetweenIncreasingJumpPower);
+            }
         }
+    }
+
+    private void SetJumpPower(int jumpPower)
+    {
+        _jumpPower = jumpPower;
+        JumpPowerChanged?.Invoke(_jumpPower);
     }
 
     private void SetDefaultNumberOfJumpPower()
     {
-        _jumpPower = _defaultJumpPower;
+        _jumpPower = _minJumpPower;
         JumpPowerChanged.Invoke(_jumpPower);
     }
 }

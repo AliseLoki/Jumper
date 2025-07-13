@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlatformsController _platformsController;
     [SerializeField] private Fabrica _fabrica;
     [SerializeField] private ShopView _shopView;
+    [SerializeField] private SoundController _soundController;
 
     [SerializeField] private CollisionHandler _collisionHandler;
     [SerializeField] private JumpHandler _jumpHandler;
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
 
     public CollisionHandler CollisionHandler => _collisionHandler;
     public JumpHandler JumpHandler => _jumpHandler;
+
+    public SoundController SoundController => _soundController;
 
     private void OnEnable()
     {

@@ -10,6 +10,8 @@ public class ViewHandler : MonoBehaviour
     [SerializeField] private PlayerViewSO _currentPlayerViewSO;
     [SerializeField] private List<PlayerViewSO> _allAccessablePlayerViewsSO;
 
+    // не написала метод первичной инициализации вьюшки, пока в инспекторе прокидываю ссылки
+
     public void InitNewView(PlayerViewSO playerViewSO)
     {
         if (_currentPlayerViewSO != playerViewSO)
@@ -29,10 +31,7 @@ public class ViewHandler : MonoBehaviour
     {
         foreach (var item in _allAccessablePlayerViewsSO)
         {
-            if (item == playerViewSO)
-            {
-                return true;
-            }
+            if (item == playerViewSO) return true; 
         }
 
         return false;
@@ -49,18 +48,10 @@ public class ViewHandler : MonoBehaviour
     {
         foreach (Transform child in _viewContainer)
         {
-          PlayerView existingView = child.GetComponent<PlayerView>();
+            PlayerView existingView = child.GetComponent<PlayerView>();
 
-            if (existingView.PlayerViewSO == playerViewSO)
-            {
-                existingView.gameObject.SetActive(true);
-            }
-            else
-            {
-                existingView.gameObject.SetActive(false);
-            }
+            if (existingView.PlayerViewSO == playerViewSO) existingView.gameObject.SetActive(true);
+            else existingView.gameObject.SetActive(false);
         }
     }
-    // инициализация дефолтного со
-    // проверка нового со на идентичность старому
 }

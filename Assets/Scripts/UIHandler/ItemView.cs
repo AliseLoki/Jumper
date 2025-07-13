@@ -8,6 +8,7 @@ public class ItemView : MonoBehaviour
     [SerializeField] private Image _image;
     [SerializeField] private Button _button;
 
+    private SoundController _soundController;
     private PlayerViewSO _playerViewSO;
     private ShopView _shopView;
 
@@ -21,9 +22,10 @@ public class ItemView : MonoBehaviour
         _button.onClick?.RemoveListener(OnButtonClick);
     }
 
-    public void InitShopView(ShopView shopView)
+    public void InitShopView(ShopView shopView, SoundController soundController)
     {
         _shopView = shopView;
+        _soundController = soundController;
     }
 
     public void Init(PlayerViewSO playerViewSO)
@@ -35,6 +37,7 @@ public class ItemView : MonoBehaviour
 
     private void OnButtonClick()
     {
+        _soundController.PlaySound(SoundName.ButtonPressed.ToString());
         _shopView.ChangePlayerView(_playerViewSO);
     }
 }

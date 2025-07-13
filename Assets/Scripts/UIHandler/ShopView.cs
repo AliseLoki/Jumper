@@ -6,8 +6,10 @@ public class ShopView : MonoBehaviour
 {
     [SerializeField] private Transform _container;
     [SerializeField] private List<PlayerViewSO> _playerViewsSO;
-    [SerializeField] private Fabrica _fabrica;
     [SerializeField] private ItemView _itemView;
+
+    [SerializeField] private Fabrica _fabrica;
+    [SerializeField] private SoundController _soundController;
 
     public event Action<PlayerViewSO> PlayerViewChanged;
 
@@ -27,7 +29,7 @@ public class ShopView : MonoBehaviour
         {
             ItemView newView = _fabrica.CreatePrefab(_itemView, Quaternion.identity, _container);
             newView.Init(view);
-            newView.InitShopView(this);
+            newView.InitShopView(this,_soundController);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] private Player _player;
-
+    
     private bool _isGrounded = true;
 
     public bool IsGrounded => _isGrounded;
@@ -11,11 +11,16 @@ public class CollisionHandler : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.TryGetComponent(out Ground ground)) _isGrounded = true;
+        _player.SoundController.PlaySound(SoundName.Landing.ToString());
+
+        if(collision.collider.TryGetComponent(out Floor floor))
+            _player.SoundController.PlaySound(SoundName.FallingOnTheFloor.ToString());
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.collider.TryGetComponent(out Ground ground)) _isGrounded = false;
+        _player.SoundController.PlaySound(SoundName.Jump.ToString());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,11 +28,13 @@ public class CollisionHandler : MonoBehaviour
         if (other.TryGetComponent(out Crystall crystall))
         {
             PickUpCollectable(crystall);
+            _player.SoundController.PlaySound(SoundName.Crystall.ToString());
         }
 
         if (other.TryGetComponent(out Coin coin))
         {
             PickUpCollectable(coin);
+            _player.SoundController.PlaySound(SoundName.Coin.ToString());
         }
     }
 

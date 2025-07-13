@@ -18,22 +18,17 @@ public class CameraController : MonoBehaviour
     {
         if (_shopView.gameObject.activeSelf)
         {
-            ShowPlayerOnTheLeft();
+           ChangeCameraPositon(_offsetForOpenShop);
         }
         else
         {
-            FollowPlayer();
+           ChangeCameraPositon(_offset);
         }
     }
 
-    private void ShowPlayerOnTheLeft()
+    private void ChangeCameraPositon(Vector3 offset)
     {
-        transform.position = _player.transform.position + _offsetForOpenShop;
-    }
-
-    private void FollowPlayer()
-    {
-        transform.position = _player.transform.position + _offset;
+        transform.position = _player.transform.position + offset;
     }
 
     private Vector3 CalculateOffset()

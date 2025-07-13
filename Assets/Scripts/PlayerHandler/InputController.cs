@@ -11,6 +11,7 @@ public class InputController : MonoBehaviour
 
     private void OnMouseUp()
     {
+        _player.SoundController.StopSound();
         _player.JumpHandler.Jump();
     }
 }
