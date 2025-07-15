@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CollectablesController : MonoBehaviour
 {
+    [SerializeField] private float _collectablesPosYOffset = 4; 
     [SerializeField] private ObjectsPool _pool;
     [SerializeField] private PlatformsController _platformsController;
 
@@ -19,13 +20,10 @@ public class CollectablesController : MonoBehaviour
     private void OnPlatformHasSpawned(bool isTrue)
     {
         int chance = Random.Range(0, 2);
-
+        // вынести шанс в инспектор
         if (chance == 0)
         {
-            int secondChance = Random.Range(0, 2);
-
-            if (secondChance == 0) SpawnTemplate(_pool.Coins, _pool.CoinToPool);
-            else SpawnTemplate(_pool.Crystalls, _pool.CrystalToPool);
+             SpawnTemplate(_pool.Coins, _pool.CoinToPool);          
         }
     }
 
@@ -38,7 +36,7 @@ public class CollectablesController : MonoBehaviour
 
     private Vector3 CalculateCollectablePosition()
     {
-        return new Vector3(_platformsController.Center.x, _platformsController.Center.y + 4,
+        return new Vector3(_platformsController.Center.x, _platformsController.Center.y + _collectablesPosYOffset,
             _platformsController.Center.z);
     }
 }

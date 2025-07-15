@@ -25,12 +25,6 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Crystall crystall))
-        {
-            PickUpCollectable(crystall);
-            _player.SoundController.PlaySound(SoundName.Crystall.ToString());
-        }
-
         if (other.TryGetComponent(out Coin coin))
         {
             PickUpCollectable(coin);

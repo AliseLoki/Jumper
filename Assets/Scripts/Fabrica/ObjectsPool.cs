@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class ObjectsPool : MonoBehaviour
 {
-    [SerializeField] private List<Interactable> _crystalls;
     [SerializeField] private List<Interactable> _coins;
     [SerializeField] private List<Interactable> _platforms;
 
-    [SerializeField] private Interactable _crystalToPool;
     [SerializeField] private Interactable _coinToPool;
     [SerializeField] private Interactable _platformToPool;
 
@@ -15,17 +13,14 @@ public class ObjectsPool : MonoBehaviour
 
     [SerializeField] private int _amountToPool = 5;
 
-    public Interactable CrystalToPool => _crystalToPool;
     public Interactable CoinToPool => _coinToPool;
     public Interactable PlatformToPool => _platformToPool;
 
-    public List<Interactable> Crystalls => _crystalls;
     public List<Interactable> Coins => _coins;
     public List<Interactable> Platforms => _platforms;
 
     void Awake()
     {
-        CreatePrefabsInPool(_crystalls, _crystalToPool);
         CreatePrefabsInPool(_coins, _coinToPool);
         CreatePrefabsInPool(_platforms, _platformToPool);
     }

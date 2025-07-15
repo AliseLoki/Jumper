@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class ItemView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
-    [SerializeField] private Image _image;
+    [SerializeField] private Image _skinView;
+    [SerializeField] private Image _background;
     [SerializeField] private Button _button;
 
     private SoundController _soundController;
@@ -30,7 +31,8 @@ public class ItemView : MonoBehaviour
 
     public void Init(PlayerViewSO playerViewSO)
     {
-        _image.sprite = playerViewSO.Sprite;
+        _skinView.sprite = playerViewSO.View;
+        _background.sprite = playerViewSO.Background;
         _text.text = playerViewSO.Price.ToString();
         _playerViewSO = playerViewSO;
     }

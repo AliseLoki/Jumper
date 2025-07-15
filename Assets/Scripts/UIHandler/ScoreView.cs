@@ -6,14 +6,14 @@ public class ScoreView : MonoBehaviour
     [SerializeField] private PlatformsController _platformsController;
     [SerializeField] private TMP_Text _text;
 
-    private void OnEnable()
+    private void Start()
     {
-        _platformsController.ScoreChanged += OnScoreChanged;
+        _platformsController.ScoreController.ScoreChanged += OnScoreChanged;
     }
 
     private void OnDisable()
     {
-        _platformsController.ScoreChanged += OnScoreChanged;
+        _platformsController.ScoreController.ScoreChanged += OnScoreChanged;
     }
 
     private void OnScoreChanged(float score)

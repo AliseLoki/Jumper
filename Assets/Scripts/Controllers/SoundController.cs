@@ -4,16 +4,20 @@ using UnityEngine.UI;
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField] private Slider _backgroundMusicSlider;
-    [SerializeField] private Slider _soundEffectsSlider;
-
-    [SerializeField] AudioSource _backgroundMusicSource;
-    [SerializeField] AudioSource _soundEffectsSource;
+    [SerializeField] private float _defaultSoundEffectsVolume = 0.5f;
+    [SerializeField] private float _defaultBackgroundMusicVolume = 0.5f;
 
     [SerializeField] private List<AudioClip> _sounds;
 
+    [SerializeField] private Slider _backgroundMusicSlider;
+    [SerializeField] private Slider _soundEffectsSlider;
+
+    [SerializeField] private AudioSource _backgroundMusicSource;
+    [SerializeField] private AudioSource _soundEffectsSource;
+
     private void Awake()
     {
+        SetSourcesDefaultValue();
         _backgroundMusicSlider.onValueChanged.AddListener(ChangeBGVolume);
         _soundEffectsSlider.onValueChanged.AddListener(ChangeSEVolume);
     }
@@ -37,6 +41,12 @@ public class SoundController : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void SetSourcesDefaultValue()
+    {
+        ChangeVolume(_backgroundMusicSource, _defaultBackgroundMusicVolume);
+        ChangeVolume(_soundEffectsSource, _defaultSoundEffectsVolume);
     }
 
     private void ChangeSEVolume(float volume)
