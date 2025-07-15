@@ -4,13 +4,19 @@ using UnityEngine;
 public class Platform : Interactable
 {
     [SerializeField] private PlatformScoreBonusView _scoreBonusView;
+   
+    [SerializeField] private Transform _viewContainer;
 
+    // в будущем сделать просчитывание через коллайдер платформы
+    // если будем менять скейл платформ менять размер коллайдера и вьюшки, тогда 
+    // и добавить платформ вью, пока константы
     private float _sector2 = 1f;
     private float _sector3 = 0.5f;
 
     private float _bonusScore;
 
     public event Action<float> PlayerLandedOnPlatform;
+    public Transform ViewContainer => _viewContainer;
   
     private void Awake()
     {

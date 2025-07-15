@@ -18,8 +18,8 @@ public class PlatformsController : MonoBehaviour
 
     public event Action<bool> PlatformHasSpawnedOnAxisX;
 
-    public PlatformsScoreController ScoreController =>_scoreController;
-   
+    public PlatformsScoreController ScoreController => _scoreController;
+
     public Vector3 Center => _centerBetweenCurrentAndPreviousPlatform;
 
     private void OnEnable()
@@ -63,21 +63,31 @@ public class PlatformsController : MonoBehaviour
 
     private void TakePlatformFromPool(float offsetX, float offsetZ)
     {
+        // взяли платформу из пула уже с готовой вьюшкой
         Platform platform = _objectsPool.GetPooledObject(_objectsPool.Platforms, _objectsPool.PlatformToPool) as Platform;
-        platform.transform.position = CalculatePlatformPosition(offsetX,offsetZ);
-        // InitView
 
+        // поместили ее на нужное место
 
+        platform.transform.position = CalculatePlatformPosition(offsetX, offsetZ);
+
+        // включили
         platform.gameObject.SetActive(true);
+
+        // инициализировали  каррент и превиэс платформ и отписались от события
         _previousPlatform = _currentPlatform;
+        _currentPlatform.PlayerLandedOnPlatform -= OnPlayerHasLandedOnPlatform;
         _currentPlatform = platform;
-        //
+
+        // подписались на события этой платформы
         _currentPlatform.PlayerLandedOnPlatform += OnPlayerHasLandedOnPlatform;
+
+        // посчитали расстояние между превиос и каррент 
         _centerBetweenCurrentAndPreviousPlatform = CalculateDistanceBetweenPlatforms();
     }
 
     private Vector3 CalculatePlatformPosition(float offsetX, float offsetZ)
     {
+        // пока берем позицию по у предыдущей платформы
         return new Vector3(_currentPlatform.transform.position.x + offsetX,
            _currentPlatform.transform.position.y, _currentPlatform.transform.position.z + offsetZ);
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CollectablesController : MonoBehaviour
 {
-    [SerializeField] private float _collectablesPosYOffset = 4; 
+    [SerializeField] private float _collectablesPosYOffset = 6; 
     [SerializeField] private ObjectsPool _pool;
     [SerializeField] private PlatformsController _platformsController;
 

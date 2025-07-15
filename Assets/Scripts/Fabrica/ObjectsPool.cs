@@ -6,12 +6,14 @@ public class ObjectsPool : MonoBehaviour
     [SerializeField] private List<Interactable> _coins;
     [SerializeField] private List<Interactable> _platforms;
 
+    [SerializeField] private List<PlatformView> _platformsViews;
+
     [SerializeField] private Interactable _coinToPool;
     [SerializeField] private Interactable _platformToPool;
 
     [SerializeField] private Fabrica _fabrica;
 
-    [SerializeField] private int _amountToPool = 5;
+    [SerializeField] private int _amountToPool = 9;
 
     public Interactable CoinToPool => _coinToPool;
     public Interactable PlatformToPool => _platformToPool;
@@ -19,10 +21,12 @@ public class ObjectsPool : MonoBehaviour
     public List<Interactable> Coins => _coins;
     public List<Interactable> Platforms => _platforms;
 
+    public List<PlatformView> PlatformViews => _platformsViews;
+
     void Awake()
     {
         CreatePrefabsInPool(_coins, _coinToPool);
-        CreatePrefabsInPool(_platforms, _platformToPool);
+        CreatePlatformWithView(_platforms, _platformToPool);
     }
 
     public Interactable GetPooledObject(List<Interactable> pool, Interactable prefab)
@@ -35,7 +39,34 @@ public class ObjectsPool : MonoBehaviour
             }
         }
 
-        return Create(pool, prefab);
+        if (prefab as Platform)
+        {
+            var newPlatform = Create(pool, prefab);
+            CreatePlatformView(newPlatform.transform);
+            return newPlatform;
+        }
+        else
+        {
+            return Create(pool, prefab);
+        }
+    }
+
+    private void CreatePlatformWithView(List<Interactable> pool, Interactable prefab)
+    {
+        Interactable platform;
+
+        for (int i = 0; i < _amountToPool; i++)
+        {
+            platform = Create(pool, prefab);
+            CreatePlatformView(platform.transform);
+        }
+    }
+
+    private PlatformView CreatePlatformView(Transform transform)
+    {
+        int index = Random.Range(0, _platformsViews.Count);
+        PlatformView view = _fabrica.CreatePrefab(_platformsViews[index], Quaternion.identity, transform);
+        return view;
     }
 
     private void CreatePrefabsInPool(List<Interactable> pool, Interactable prefab)

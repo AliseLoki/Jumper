@@ -16,4 +16,4 @@ MonoBehaviour:
   _name: Blaze
   _view: {fileID: 21300000, guid: ddb304b63bc279e40bc38fa7c2c02d25, type: 3}
   _background: {fileID: 21300000, guid: e23369c1169dd5d4085c857534c4b163, type: 3}
-  _prefab: {fileID: 7617966294378650131, guid: 187467c95e0662d4680479f795d73229, type: 3}
+  _prefab: {fileID: -4498904529869257792, guid: 187467c95e0662d4680479f795d73229, type: 3}
