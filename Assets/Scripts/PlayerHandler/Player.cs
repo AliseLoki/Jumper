@@ -29,11 +29,8 @@ public class Player : MonoBehaviour
     {
         _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformSpawned;
         _shopView.PlayerViewChanged += OnPlayerViewChanged;
-    }
-
-    private void Start()
-    {
-        //_viewHandler.InitView();
+        _viewHandler.InitDefaultView();
+        // пока здесь потом продумать логику
     }
 
     private void OnDisable()

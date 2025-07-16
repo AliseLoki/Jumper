@@ -10,7 +10,10 @@ public class ViewHandler : MonoBehaviour
     [SerializeField] private PlayerViewSO _currentPlayerViewSO;
     [SerializeField] private List<PlayerViewSO> _allAccessablePlayerViewsSO;
 
-    // не написала метод первичной инициализации вьюшки, пока в инспекторе прокидываю ссылки
+    public void InitDefaultView()
+    {
+        AddNewViewPrefab(_currentPlayerViewSO);
+    }
 
     public void InitNewView(PlayerViewSO playerViewSO)
     {
@@ -31,7 +34,7 @@ public class ViewHandler : MonoBehaviour
     {
         foreach (var item in _allAccessablePlayerViewsSO)
         {
-            if (item == playerViewSO) return true; 
+            if (item == playerViewSO) return true;
         }
 
         return false;
@@ -39,9 +42,9 @@ public class ViewHandler : MonoBehaviour
 
     private void AddNewViewPrefab(PlayerViewSO playerViewSO)
     {
-        _currentPlayerView.gameObject.SetActive(false);
+        if (_currentPlayerView != null) _currentPlayerView.gameObject.SetActive(false);
         _currentPlayerView = _player.Fabrica.CreatePrefab(playerViewSO.Prefab, Quaternion.identity, _viewContainer);
-        RotateView(_currentPlayerView, transform.rotation.y);
+        RotateViewAccordingToPlayerRotation(_currentPlayerView);
         _currentPlayerView.gameObject.SetActive(true);
     }
 
@@ -53,18 +56,18 @@ public class ViewHandler : MonoBehaviour
 
             if (existingView.PlayerViewSO == playerViewSO)
             {
-                existingView.gameObject.SetActive(true);
-                RotateView(existingView, transform.rotation.y);
+                RotateViewAccordingToPlayerRotation(existingView);
+                existingView.gameObject.SetActive(true);              
             }
-            else 
+            else
             {
                 existingView.gameObject.SetActive(false);
             }
         }
     }
 
-    private void RotateView(PlayerView view, float y)
+    private void RotateViewAccordingToPlayerRotation(PlayerView view)
     {
-        view.transform.rotation = Quaternion.Euler(0, y, 0);
+        view.transform.rotation = transform.rotation;
     }
 }
