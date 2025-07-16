@@ -7,6 +7,8 @@ public class PlatformsController : MonoBehaviour
     [SerializeField] private Platform _currentPlatform;
     [SerializeField] private Platform _previousPlatform;
 
+    [SerializeField] private Platform _platformToDeactivate;
+
     [SerializeField] private ObjectsPool _objectsPool;
 
     [SerializeField] private float _minOffset = 5;
@@ -74,9 +76,10 @@ public class PlatformsController : MonoBehaviour
         platform.gameObject.SetActive(true);
 
         // инициализировали  каррент и превиэс платформ и отписались от события
-        if (_previousPlatform != null) _previousPlatform.gameObject.SetActive(false);
+        if (_platformToDeactivate != null) _platformToDeactivate.gameObject.SetActive(false);
+        _platformToDeactivate = _previousPlatform;
         _previousPlatform = _currentPlatform;
-        if(_previousPlatform!= null)_previousPlatform.gameObject.SetActive(true);
+        
         _currentPlatform.PlayerLandedOnPlatform -= OnPlayerHasLandedOnPlatform;
         _currentPlatform = platform;
 

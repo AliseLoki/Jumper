@@ -262,6 +262,7 @@ MonoBehaviour:
   _firstPlatform: {fileID: 4310141682661956424}
   _currentPlatform: {fileID: 4310141682661956424}
   _previousPlatform: {fileID: 0}
+  _platformToDeactivate: {fileID: 0}
   _objectsPool: {fileID: 1037873434}
   _minOffset: 5
   _maxOffset: 8
