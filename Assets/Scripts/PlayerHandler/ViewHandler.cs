@@ -41,6 +41,7 @@ public class ViewHandler : MonoBehaviour
     {
         _currentPlayerView.gameObject.SetActive(false);
         _currentPlayerView = _player.Fabrica.CreatePrefab(playerViewSO.Prefab, Quaternion.identity, _viewContainer);
+        RotateView(_currentPlayerView, transform.rotation.y);
         _currentPlayerView.gameObject.SetActive(true);
     }
 
@@ -50,8 +51,20 @@ public class ViewHandler : MonoBehaviour
         {
             PlayerView existingView = child.GetComponent<PlayerView>();
 
-            if (existingView.PlayerViewSO == playerViewSO) existingView.gameObject.SetActive(true);
-            else existingView.gameObject.SetActive(false);
+            if (existingView.PlayerViewSO == playerViewSO)
+            {
+                existingView.gameObject.SetActive(true);
+                RotateView(existingView, transform.rotation.y);
+            }
+            else 
+            {
+                existingView.gameObject.SetActive(false);
+            }
         }
+    }
+
+    private void RotateView(PlayerView view, float y)
+    {
+        view.transform.rotation = Quaternion.Euler(0, y, 0);
     }
 }

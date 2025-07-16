@@ -32,16 +32,8 @@ public class JumpHandler : MonoBehaviour
     {
         if (_player.CollisionHandler.IsGrounded)
         {
-            if (_player.IsJumpingOnAxisX)
-            {
-                JumpDefault(_jumpPower, 0);             
-               // поворачивать игрока в сторону платформы, а прыгать просто прямо
-               
-            }
-            else
-            {
-                JumpDefault(0, _jumpPower);                
-            }
+            if (_player.IsJumpingOnAxisX) JumpDefault(_jumpPower, 0);
+            else JumpDefault(0, _jumpPower);
         }
     }
 

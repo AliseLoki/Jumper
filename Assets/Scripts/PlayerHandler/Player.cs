@@ -13,10 +13,10 @@ public class Player : MonoBehaviour
     [SerializeField] private ViewHandler _viewHandler;
 
     private bool _isJumpingOnAxisX = true;
-   
+
     public event Action<Interactable> CollectablesAmountChanged;
 
-    public bool IsJumpingOnAxisX => _isJumpingOnAxisX;   
+    public bool IsJumpingOnAxisX => _isJumpingOnAxisX;
 
     public Fabrica Fabrica => _fabrica;
 
@@ -54,5 +54,12 @@ public class Player : MonoBehaviour
     private void OnPlatformSpawned(bool isTrue)
     {
         _isJumpingOnAxisX = isTrue;
+        RotatePlayer(isTrue);
+    }
+
+    private void RotatePlayer(bool isTrue)
+    {
+        if (isTrue) transform.rotation = Quaternion.Euler(0, 90, 0);
+        else transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
