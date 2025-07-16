@@ -1,16 +1,8 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class ObjectsPool : MonoBehaviour
 {
-    //
-    
-
-    [SerializeField] private TMP_Text _activePlatformsAmount;
-    [SerializeField] private TMP_Text _notActivePlatformsAmount;
-    //
-
     [SerializeField] private List<Interactable> _coins;
     [SerializeField] private List<Interactable> _platforms;
 
@@ -21,7 +13,8 @@ public class ObjectsPool : MonoBehaviour
 
     [SerializeField] private Fabrica _fabrica;
 
-    [SerializeField] private int _amountToPool = 9;
+    [SerializeField] private int _amountToPool = 5;
+    // сделать отдельные для платформы и даймондов
 
     public Interactable CoinToPool => _coinToPool;
     public Interactable PlatformToPool => _platformToPool;
@@ -37,46 +30,11 @@ public class ObjectsPool : MonoBehaviour
         CreatePlatformWithView(_platforms, _platformToPool);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Test();
-        }
-    }
-
-    public void Test()
-    {
-        int activePlatforms = 0;
-        int notActivePlatforms = 0;
-
-        foreach (Transform child in this.transform)
-        {
-            if (child.GetComponent<Interactable>() as Platform)
-            {
-                if (child.gameObject.activeSelf)
-                {
-                    activePlatforms++;
-                }
-                else
-                {
-                    notActivePlatforms++;
-                }
-            }
-        }
-
-        _activePlatformsAmount.text = "active: " + activePlatforms.ToString();
-        _notActivePlatformsAmount.text = "notActive: " + notActivePlatforms.ToString();
-    }
-
     public Interactable GetPooledObject(List<Interactable> pool, Interactable prefab)
     {
         for (int i = 0; i < _amountToPool; i++)
         {
-            if (!pool[i].gameObject.activeInHierarchy)
-            {
-                return pool[i];
-            }
+            if (!pool[i].gameObject.activeInHierarchy) return pool[i];
         }
 
         if (prefab as Platform)

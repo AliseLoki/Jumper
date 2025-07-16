@@ -6,8 +6,9 @@ public class PlatformsController : MonoBehaviour
     [SerializeField] private Platform _firstPlatform;
     [SerializeField] private Platform _currentPlatform;
     [SerializeField] private Platform _previousPlatform;
-
     [SerializeField] private Platform _platformToDeactivate;
+
+    [SerializeField] private Player _player;
 
     [SerializeField] private ObjectsPool _objectsPool;
 
@@ -50,7 +51,6 @@ public class PlatformsController : MonoBehaviour
     {
         _scoreController.OnScoreChanged(bonusScore);
 
-        // просчитываем вариант
         var random = UnityEngine.Random.Range(0, 2);
 
         if (random == 0) TransformPlatformOnAxis(true, CalculateOffsetForPlatformsPosition(), 0);
@@ -59,35 +59,28 @@ public class PlatformsController : MonoBehaviour
 
     private void TransformPlatformOnAxis(bool isAxisX, float x, float z)
     {
-        TakePlatformFromPool(x, z);
+        Platform platform = TakePlatformFromPool(x, z);
+        InitPlatforms(platform);
+        _centerBetweenCurrentAndPreviousPlatform = CalculateDistanceBetweenPlatforms();
         PlatformHasSpawnedOnAxisX?.Invoke(isAxisX);
     }
 
-    private void TakePlatformFromPool(float offsetX, float offsetZ)
+    private Platform TakePlatformFromPool(float offsetX, float offsetZ)
     {
-        // взяли платформу из пула уже с готовой вьюшкой
         Platform platform = _objectsPool.GetPooledObject(_objectsPool.Platforms, _objectsPool.PlatformToPool) as Platform;
-
-        // поместили ее на нужное место
-
         platform.transform.position = CalculatePlatformPosition(offsetX, offsetZ);
-
-        // включили
         platform.gameObject.SetActive(true);
+        return platform;
+    }
 
-        // инициализировали  каррент и превиэс платформ и отписались от события
+    private void InitPlatforms(Platform platform)
+    {
         if (_platformToDeactivate != null) _platformToDeactivate.gameObject.SetActive(false);
         _platformToDeactivate = _previousPlatform;
         _previousPlatform = _currentPlatform;
-        
         _currentPlatform.PlayerLandedOnPlatform -= OnPlayerHasLandedOnPlatform;
         _currentPlatform = platform;
-
-        // подписались на события этой платформы
         _currentPlatform.PlayerLandedOnPlatform += OnPlayerHasLandedOnPlatform;
-
-        // посчитали расстояние между превиос и каррент 
-        _centerBetweenCurrentAndPreviousPlatform = CalculateDistanceBetweenPlatforms();
     }
 
     private Vector3 CalculatePlatformPosition(float offsetX, float offsetZ)

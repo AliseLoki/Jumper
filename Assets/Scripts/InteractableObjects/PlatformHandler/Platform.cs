@@ -1,16 +1,12 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Platform : Interactable
 {
     [SerializeField] private PlatformScoreBonusView _scoreBonusView;
-   
     [SerializeField] private Transform _viewContainer;
 
     // в будущем сделать просчитывание через коллайдер платформы
-    // если будем мен€ть скейл платформ мен€ть размер коллайдера и вьюшки, тогда 
-    // и добавить платформ вью, пока константы
     private float _sector2 = 1f;
     private float _sector3 = 0.5f;
 
@@ -18,31 +14,12 @@ public class Platform : Interactable
 
     public event Action<float> PlayerLandedOnPlatform;
     public Transform ViewContainer => _viewContainer;
-  
-    private void Awake()
-    {
-        // скрыть показ бонус—кор
-        // инит вью
-    }
-
-
-    private void OnBecameInvisible()
-    {
-        this.gameObject.SetActive(false);
-            Debug.Log(this.gameObject.name);
-    }
-    //private void OnBecameInvisible()
-    //{
-    //    //пока не решила что с этим методом делать
-    //    this.gameObject.SetActive(false);
-    //    Debug.Log(this.gameObject.name);
-    //}
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.TryGetComponent(out Player player))
         {
-            _bonusScore = CalculateBonusPlayerLandingZone(player.transform.position.x, player.transform.position.z);
+            _bonusScore = CalculateBonus(player.transform.position.x, player.transform.position.z);
             _scoreBonusView.ShowScore(_bonusScore);
             PlayerLandedOnPlatform?.Invoke(_bonusScore);
         }
@@ -56,7 +33,7 @@ public class Platform : Interactable
         }
     }
 
-    private float CalculateBonusPlayerLandingZone(float x, float z)
+    private float CalculateBonus(float x, float z)
     {
         float positiveX = CalculatePlayerLandingZone(x, transform.position.x);
         float positiveZ = CalculatePlayerLandingZone(z, transform.position.z);
