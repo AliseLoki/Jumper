@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Platform : Interactable
@@ -24,12 +25,18 @@ public class Platform : Interactable
         // инит вью
     }
 
+
     private void OnBecameInvisible()
     {
-        //пока не решила что с этим методом делать
-        enabled = false;
-        Debug.Log(this.gameObject.name);
+        this.gameObject.SetActive(false);
+            Debug.Log(this.gameObject.name);
     }
+    //private void OnBecameInvisible()
+    //{
+    //    //пока не решила что с этим методом делать
+    //    this.gameObject.SetActive(false);
+    //    Debug.Log(this.gameObject.name);
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {

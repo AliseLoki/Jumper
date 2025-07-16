@@ -74,7 +74,9 @@ public class PlatformsController : MonoBehaviour
         platform.gameObject.SetActive(true);
 
         // инициализировали  каррент и превиэс платформ и отписались от события
+        if (_previousPlatform != null) _previousPlatform.gameObject.SetActive(false);
         _previousPlatform = _currentPlatform;
+        if(_previousPlatform!= null)_previousPlatform.gameObject.SetActive(true);
         _currentPlatform.PlayerLandedOnPlatform -= OnPlayerHasLandedOnPlatform;
         _currentPlatform = platform;
 

@@ -1,8 +1,16 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObjectsPool : MonoBehaviour
 {
+    //
+    
+
+    [SerializeField] private TMP_Text _activePlatformsAmount;
+    [SerializeField] private TMP_Text _notActivePlatformsAmount;
+    //
+
     [SerializeField] private List<Interactable> _coins;
     [SerializeField] private List<Interactable> _platforms;
 
@@ -27,6 +35,38 @@ public class ObjectsPool : MonoBehaviour
     {
         CreatePrefabsInPool(_coins, _coinToPool);
         CreatePlatformWithView(_platforms, _platformToPool);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Test();
+        }
+    }
+
+    public void Test()
+    {
+        int activePlatforms = 0;
+        int notActivePlatforms = 0;
+
+        foreach (Transform child in this.transform)
+        {
+            if (child.GetComponent<Interactable>() as Platform)
+            {
+                if (child.gameObject.activeSelf)
+                {
+                    activePlatforms++;
+                }
+                else
+                {
+                    notActivePlatforms++;
+                }
+            }
+        }
+
+        _activePlatformsAmount.text = "active: " + activePlatforms.ToString();
+        _notActivePlatformsAmount.text = "notActive: " + notActivePlatforms.ToString();
     }
 
     public Interactable GetPooledObject(List<Interactable> pool, Interactable prefab)
