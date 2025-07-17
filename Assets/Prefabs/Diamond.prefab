@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852522291143463822}
   - component: {fileID: 231466984805743411}
-  - component: {fileID: 4381163542689915955}
-  - component: {fileID: 1054364559670238558}
+  - component: {fileID: 3896781496365101176}
   m_Layer: 0
   m_Name: Diamond
   m_TagString: Untagged
@@ -56,7 +55,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4381163542689915955
+--- !u!114 &3896781496365101176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,19 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 129920475590502124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2365e99655876446906457a722f09e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1054364559670238558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129920475590502124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 353737e4e99a67f4697e17f69a3f85f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 789d398ad087fad4ea0128b3a8342684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateOffset: {x: 0, y: 45, z: 0}

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Rotator : MonoBehaviour
+public class Diamond : Interactable
 {
-    [SerializeField] private Vector3 _rotateOffset;
+    [SerializeField] private Vector3 _rotateOffset = new Vector3(0, 45, 0);
 
     void Update()
     {

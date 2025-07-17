@@ -2,7 +2,7 @@ public enum SoundName
 {
     ButtonPressed,
     Crystall,
-    Coin,
+    Diamond,
     Jump,
     JumpPowerUp,
     JumpPowerDown,

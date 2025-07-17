@@ -261,7 +261,6 @@ MonoBehaviour:
   _currentPlatform: {fileID: 4310141682661956424}
   _previousPlatform: {fileID: 0}
   _platformToDeactivate: {fileID: 0}
-  floor: {fileID: 0}
   _player: {fileID: 7540059428127672172}
   _objectsPool: {fileID: 1037873434}
   _minOffset: 5
@@ -2277,7 +2276,7 @@ MonoBehaviour:
   - {fileID: 2913172013417123536, guid: e9fcf6c062440804491c6a65938678b1, type: 3}
   - {fileID: -9066571764892245995, guid: 7c4461b93dbe6ba42b5481739e8622a2, type: 3}
   - {fileID: -2479879112172095660, guid: e1789725f33c78a4897f27805f720f2b, type: 3}
-  _coinToPool: {fileID: 4381163542689915955, guid: 0cb6113793881004d9e625eb05344f02, type: 3}
+  _coinToPool: {fileID: 3896781496365101176, guid: 0cb6113793881004d9e625eb05344f02, type: 3}
   _platformToPool: {fileID: 4445800156323740534, guid: 272389362144e0645a6fe09b447315fd, type: 3}
   _fabrica: {fileID: 368235924}
   _amountToPool: 5
@@ -3923,15 +3922,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6040851, g: 0.7075472, b: 0.68853235, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 106b7e867368e594cbeb7094f4efa4f8, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4841,7 +4840,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7556266710877747774}
-  - component: {fileID: 8759778106517904892}
   - component: {fileID: 2193502112002167747}
   - component: {fileID: 4310141682661956424}
   - component: {fileID: 8759778106517904893}
@@ -5076,18 +5074,6 @@ Transform:
   - {fileID: 2124871259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8759778106517904892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426003805419015353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf33447cae3d9624e81ba6e24578abe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8759778106517904893
 MonoBehaviour:
   m_ObjectHideFlags: 0

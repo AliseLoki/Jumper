@@ -4,12 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _crystallsAmountText;
-    [SerializeField] private TMP_Text _coinsAmountText;
+    [SerializeField] private TMP_Text _diamondsAmountText;
     [SerializeField] private Player _player;
 
-    private int _crystalls;
-    private int _coins;
+    private int _diamonds;
 
     private void OnEnable()
     {
@@ -28,13 +26,9 @@ public class UI : MonoBehaviour
 
     private void OnCollectablesAmountChanged(Interactable interactable)
     {
-        if (interactable as Coin)
+        if (interactable as Diamond)
         {
-            ShowCollectablesAmount(_coinsAmountText, ref _coins);
-        }
-        else
-        {
-            ShowCollectablesAmount(_crystallsAmountText, ref _crystalls);
+            ShowCollectablesAmount(_diamondsAmountText, ref _diamonds);
         }
     }
 

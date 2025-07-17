@@ -6,8 +6,8 @@ public class ViewHandler : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private Transform _viewContainer;
     [SerializeField] private PlayerView _currentPlayerView;
-
     [SerializeField] private PlayerViewSO _currentPlayerViewSO;
+
     [SerializeField] private List<PlayerViewSO> _allAccessablePlayerViewsSO;
 
     public void InitDefaultView()

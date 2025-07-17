@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         _platformsController.PlatformHasSpawnedOnAxisX -= OnPlatformSpawned;
+        _shopView.PlayerViewChanged -= OnPlayerViewChanged;
     }
 
     public void ChangeCollectablesAmount(Interactable interactable)
