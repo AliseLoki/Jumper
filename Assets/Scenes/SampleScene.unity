@@ -210,8 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c45166bc5586644d943dcca3d603cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crystallsAmountText: {fileID: 0}
-  _coinsAmountText: {fileID: 1011497956}
+  _diamondsAmountText: {fileID: 1011497956}
   _player: {fileID: 7540059428127672172}
 --- !u!1 &39432858
 GameObject:
