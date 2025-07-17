@@ -8,6 +8,8 @@ public class PlatformsController : MonoBehaviour
     [SerializeField] private Platform _previousPlatform;
     [SerializeField] private Platform _platformToDeactivate;
 
+    [SerializeField] private Floor floor;
+
     [SerializeField] private Player _player;
 
     [SerializeField] private ObjectsPool _objectsPool;
