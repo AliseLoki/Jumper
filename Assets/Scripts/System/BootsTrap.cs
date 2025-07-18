@@ -29,6 +29,7 @@ public class BootsTrap : MonoBehaviour
         _platformsController = CreateEmptyObjectWithScript<PlatformsController>(nameof(PlatformsController));
         _collectablesController = CreateEmptyObjectWithScript<CollectablesController>(nameof(CollectablesController));
         _player = _fabrica.CreatePrefab(_fabrica.GetPrefabLinkFromFolder<Player>(nameof(Player)));
+        _fabrica.CreatePrefab(_fabrica.GetPrefabLinkFromFolder<Floor>(nameof(Floor)));
     }
 
     private void InitReferences()
@@ -36,9 +37,9 @@ public class BootsTrap : MonoBehaviour
         _mainCamera.Init(_player);
         _objectsPool.Init(_fabrica, _platformViews);
         _platformsController.Init(_objectsPool);
-        _collectablesController.Init(_platformsController,_objectsPool);
-        _player.Init(_platformsController,_fabrica,_shopView,_soundController);
-        _ui.Init(_player, _fabrica,_platformsController);
+        _collectablesController.Init(_platformsController, _objectsPool);
+        _player.Init(_platformsController, _fabrica, _shopView, _soundController);
+        _ui.Init(_player, _fabrica, _platformsController);
     }
 
     private void StartgameProcess()
