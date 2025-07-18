@@ -68,6 +68,6 @@ public class SoundController : MonoBehaviour
     private void PlayTestEffect()
     {
         if (!_soundEffectsSource.isPlaying)
-            _soundEffectsSource.PlayOneShot(_soundEffectsSource.clip);
+            PlaySound(SoundName.Crystall.ToString());
     }
 }

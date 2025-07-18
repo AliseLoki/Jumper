@@ -10,9 +10,9 @@ public class Platform : Interactable
     private float _sector2 = 1f;
     private float _sector3 = 0.5f;
 
-    private float _bonusScore;
+    private int _bonusScore;
 
-    public event Action<float> PlayerLandedOnPlatform;
+    public event Action<int> PlayerLandedOnPlatform;
     public Transform ViewContainer => _viewContainer;
 
     private void OnCollisionEnter(Collision collision)
@@ -33,7 +33,7 @@ public class Platform : Interactable
         }
     }
 
-    private float CalculateBonus(float x, float z)
+    private int CalculateBonus(float x, float z)
     {
         float positiveX = CalculatePlayerLandingZone(x, transform.position.x);
         float positiveZ = CalculatePlayerLandingZone(z, transform.position.z);

@@ -6,4 +6,14 @@ public class Fabrica : MonoBehaviour
     {
         return (T)Instantiate(prefab, parent.transform.position, rotation, parent);
     }
+
+    public T CreatePrefab<T>(T prefab) where T : MonoBehaviour
+    {
+        return (T)Instantiate(prefab);
+    }
+
+    public T GetPrefabLinkFromFolder<T>(string path) where T : MonoBehaviour
+    {
+        return Resources.Load(path, typeof(T)) as T;
+    }
 }

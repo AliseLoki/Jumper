@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class PlatformsController : MonoBehaviour
 {
-    [SerializeField] private Platform _firstPlatform;
-    [SerializeField] private Platform _currentPlatform;
-    [SerializeField] private Platform _previousPlatform;
-    [SerializeField] private Platform _platformToDeactivate;
+    private Platform _firstPlatform;
+    private Platform _currentPlatform;
+    private Platform _previousPlatform;
+    private Platform _platformToDeactivate;
 
-    [SerializeField] private Player _player;
-    [SerializeField] private ObjectsPool _objectsPool;
+    private ObjectsPool _objectsPool;
 
     [SerializeField] private float _minOffset = 5;
     [SerializeField] private float _maxOffset = 8;
@@ -26,19 +25,19 @@ public class PlatformsController : MonoBehaviour
 
     private void OnEnable()
     {
-        _currentPlatform = _firstPlatform;
+        // _currentPlatform = _firstPlatform;
     }
 
     private void Awake()
     {
         // тоже продумать в эвейке создаетс€ скор онтроллер, в старте скор¬ью на него подписываетс€
         // после добавлени€ бутс“рэп может можно будет покрасивее это сделать
-        _scoreController = new PlatformsScoreController();
+        //_scoreController = new PlatformsScoreController();
     }
 
     private void Start()
     {
-        TransformPlatformOnAxis(true, CalculateOffsetForPlatformsPosition(), 0);
+        //TransformPlatformOnAxis(true, CalculateOffsetForPlatformsPosition(), 0);
     }
 
     private void OnDisable()
@@ -46,7 +45,23 @@ public class PlatformsController : MonoBehaviour
         _currentPlatform.PlayerLandedOnPlatform -= OnPlayerHasLandedOnPlatform;
     }
 
-    private void OnPlayerHasLandedOnPlatform(float bonusScore)
+    public void Init(ObjectsPool pool)
+    {
+        _scoreController = new PlatformsScoreController();
+        _objectsPool = pool;
+        _firstPlatform = _objectsPool.GetPooledObject(_objectsPool.Platforms, _objectsPool.PlatformToPool) as Platform;
+        _firstPlatform.transform.position = new Vector3(0, 0, 0);
+        _firstPlatform.gameObject.SetActive(true);
+        _currentPlatform = _firstPlatform;
+        TransformPlatformOnAxis(true, CalculateOffsetForPlatformsPosition(), 0);
+    }
+
+    public void StartGame()
+    {
+
+    }
+
+    private void OnPlayerHasLandedOnPlatform(int bonusScore)
     {
         _scoreController.OnScoreChanged(bonusScore);
 

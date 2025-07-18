@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlatformsController _platformsController;
-    [SerializeField] private Fabrica _fabrica;
-    [SerializeField] private ShopView _shopView;
-    [SerializeField] private SoundController _soundController;
+    private PlatformsController _platformsController;
+    private Fabrica _fabrica;
+
+    private ShopView _shopView;
+    private SoundController _soundController;
 
     [SerializeField] private CollisionHandler _collisionHandler;
     [SerializeField] private JumpHandler _jumpHandler;
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour
 
     private bool _isJumpingOnAxisX = true;
 
-    public event Action<Interactable> CollectablesAmountChanged;
+    public event Action CollectablesAmountChanged;
 
     public bool IsJumpingOnAxisX => _isJumpingOnAxisX;
 
@@ -25,23 +26,34 @@ public class Player : MonoBehaviour
 
     public SoundController SoundController => _soundController;
 
-    private void OnEnable()
-    {
-        _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformSpawned;
-        _shopView.PlayerViewChanged += OnPlayerViewChanged;
-        _viewHandler.InitDefaultView();
-        // пока здесь потом продумать логику
-    }
-
     private void OnDisable()
     {
         _platformsController.PlatformHasSpawnedOnAxisX -= OnPlatformSpawned;
         _shopView.PlayerViewChanged -= OnPlayerViewChanged;
     }
 
-    public void ChangeCollectablesAmount(Interactable interactable)
+    public void Init(PlatformsController platformsController, Fabrica fabrica, ShopView shopView, SoundController contr)
     {
-        CollectablesAmountChanged?.Invoke(interactable);
+        _platformsController = platformsController;
+       // _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformSpawned;
+        _fabrica = fabrica;
+        _shopView = shopView;
+        _soundController = contr;
+      //  _viewHandler.InitDefaultView();
+       // _shopView.PlayerViewChanged += OnPlayerViewChanged;
+    }
+
+    public void StartGame()
+    {
+        _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformSpawned;
+        _viewHandler.InitDefaultView();
+        transform.rotation = Quaternion.Euler(0, 90, 0);
+        _shopView.PlayerViewChanged += OnPlayerViewChanged;
+    }
+
+    public void ChangeCollectablesAmount()
+    {
+        CollectablesAmountChanged?.Invoke();
     }
 
     private void OnPlayerViewChanged(PlayerViewSO playerViewSO)

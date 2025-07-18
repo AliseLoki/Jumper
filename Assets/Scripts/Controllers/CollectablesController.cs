@@ -3,18 +3,31 @@ using UnityEngine;
 
 public class CollectablesController : MonoBehaviour
 {
-    [SerializeField] private float _collectablesPosYOffset = 6; 
-    [SerializeField] private ObjectsPool _pool;
-    [SerializeField] private PlatformsController _platformsController;
+    [SerializeField] private float _collectablesPosYOffset = 6;
+
+    private ObjectsPool _pool;
+    private PlatformsController _platformsController;
 
     private void OnEnable()
     {
-        _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformHasSpawned;
+       // _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformHasSpawned;
     }
 
     private void OnDisable()
     {
         _platformsController.PlatformHasSpawnedOnAxisX -= OnPlatformHasSpawned;
+    }
+
+    public void Init(PlatformsController platformsController, ObjectsPool objectsPool)
+    {
+        _platformsController = platformsController;
+        _pool = objectsPool;    
+        //_platformsController.PlatformHasSpawnedOnAxisX += OnPlatformHasSpawned;
+    }
+
+    public void StartGame()
+    {
+        _platformsController.PlatformHasSpawnedOnAxisX += OnPlatformHasSpawned;
     }
 
     private void OnPlatformHasSpawned(bool isTrue)
@@ -23,7 +36,7 @@ public class CollectablesController : MonoBehaviour
         // вынести шанс в инспектор
         if (chance == 0)
         {
-             SpawnTemplate(_pool.Coins, _pool.CoinToPool);          
+            SpawnTemplate(_pool.Coins, _pool.CoinToPool);
         }
     }
 

@@ -27,14 +27,9 @@ public class CollisionHandler : MonoBehaviour
     {
         if (other.TryGetComponent(out Diamond diamond))
         {
-            PickUpCollectable(diamond);
             _player.SoundController.PlaySound(SoundName.Diamond.ToString());
+            _player.ChangeCollectablesAmount();
+            diamond.gameObject.SetActive(false);
         }
-    }
-
-    private void PickUpCollectable(Interactable interactable)
-    {
-        interactable.gameObject.SetActive(false);
-        _player.ChangeCollectablesAmount(interactable);
     }
 }

@@ -2,11 +2,11 @@ using System;
 
 public class PlatformsScoreController 
 {
-    private float _score;
+    private int _score;
 
-    public event Action<float> ScoreChanged;
+    public event Action<int> ScoreChanged;
 
-    public void OnScoreChanged(float bonusScore)
+    public void OnScoreChanged(int bonusScore)
     {
         _score += bonusScore;
         ScoreChanged?.Invoke(_score);

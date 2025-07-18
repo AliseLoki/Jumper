@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class ObjectsPool : MonoBehaviour
 {
-    [SerializeField] private List<Interactable> _coins;
-    [SerializeField] private List<Interactable> _platforms;
-
-    [SerializeField] private List<PlatformView> _platformsViews;
-
-    [SerializeField] private Interactable _coinToPool;
-    [SerializeField] private Interactable _platformToPool;
-
-    [SerializeField] private Fabrica _fabrica;
-
+    // если при передаче объекта из пула делать его активным, то включать в других скриптах не придется
+    // можно внутри него создавать пустые контейнеры для платформ и даймондов
     [SerializeField] private int _amountToPool = 5;
-    // сделать отдельные для платформы и даймондов
+
+    private List<Interactable> _coins = new();
+    private List<Interactable> _platforms = new();
+    private List<PlatformView> _platformsViews = new();
+
+    private Interactable _coinToPool;
+    private Interactable _platformToPool;
+
+    private Fabrica _fabrica;
 
     public Interactable CoinToPool => _coinToPool;
     public Interactable PlatformToPool => _platformToPool;
@@ -22,12 +22,14 @@ public class ObjectsPool : MonoBehaviour
     public List<Interactable> Coins => _coins;
     public List<Interactable> Platforms => _platforms;
 
-    public List<PlatformView> PlatformViews => _platformsViews;
-
-    void Awake()
+    public void Init(Fabrica fabrica, List<PlatformView> platformViews)
     {
-        CreatePrefabsInPool(_coins, _coinToPool);
-        CreatePlatformWithView(_platforms, _platformToPool);
+        _fabrica = fabrica;
+        _coinToPool = _fabrica.GetPrefabLinkFromFolder<Diamond>(nameof(Diamond));
+        _platformToPool = _fabrica.GetPrefabLinkFromFolder<Platform>(nameof(Platform));
+
+        InitList(platformViews);
+        InitContainers();
     }
 
     public Interactable GetPooledObject(List<Interactable> pool, Interactable prefab)
@@ -46,6 +48,20 @@ public class ObjectsPool : MonoBehaviour
         else
         {
             return Create(pool, prefab);
+        }
+    }
+
+    private void InitContainers()
+    {
+        CreatePrefabsInPool(_coins, _coinToPool);
+        CreatePlatformWithView(_platforms, _platformToPool);
+    }
+
+    private void InitList(List<PlatformView> platformViews)
+    {
+        foreach (var platformView in platformViews)
+        {
+            _platformsViews.Add(platformView);
         }
     }
 

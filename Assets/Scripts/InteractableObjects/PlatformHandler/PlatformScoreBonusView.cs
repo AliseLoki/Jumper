@@ -14,9 +14,9 @@ public class PlatformScoreBonusView : MonoBehaviour
 
     [SerializeField] private TMP_Text _text;
 
-    public float BonusMax { get; private set; } = 3;
-    public float BonusMid { get; private set; } = 2;
-    public float BonusMin { get; private set; } = 1;
+    public int BonusMax { get; private set; } = 3;
+    public int BonusMid { get; private set; } = 2;
+    public int BonusMin { get; private set; } = 1;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class PlatformScoreBonusView : MonoBehaviour
         _text.gameObject.SetActive(isActive);
     }
 
-    public void ShowScore(float bonusScore)
+    public void ShowScore(int bonusScore)
     {
         SetScale(bonusScore);
         InitBonusScoreAmount(bonusScore);
@@ -42,14 +42,14 @@ public class PlatformScoreBonusView : MonoBehaviour
         _text.rectTransform.DOAnchorPosY(0, fluingDuration);
     }
 
-    private void SetScale(float bonusScore)
+    private void SetScale(int bonusScore)
     {
         if (bonusScore == BonusMin) ChangeScale(_smallScale);
         else if (bonusScore == BonusMid) ChangeScale(_mediumScale);
         else if (bonusScore == BonusMax) ChangeScale(_largeScale);
     }
 
-    private void InitBonusScoreAmount(float bonusScore)
+    private void InitBonusScoreAmount(int bonusScore)
     {
         _text.text = Plus + bonusScore.ToString();
     }
