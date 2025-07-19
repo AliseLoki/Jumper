@@ -23,23 +23,6 @@ public class PlatformsController : MonoBehaviour
 
     public Vector3 Center => _centerBetweenCurrentAndPreviousPlatform;
 
-    private void OnEnable()
-    {
-        // _currentPlatform = _firstPlatform;
-    }
-
-    private void Awake()
-    {
-        // тоже продумать в эвейке создаетс€ скор онтроллер, в старте скор¬ью на него подписываетс€
-        // после добавлени€ бутс“рэп может можно будет покрасивее это сделать
-        //_scoreController = new PlatformsScoreController();
-    }
-
-    private void Start()
-    {
-        //TransformPlatformOnAxis(true, CalculateOffsetForPlatformsPosition(), 0);
-    }
-
     private void OnDisable()
     {
         _currentPlatform.PlayerLandedOnPlatform -= OnPlayerHasLandedOnPlatform;
@@ -54,11 +37,6 @@ public class PlatformsController : MonoBehaviour
         _firstPlatform.gameObject.SetActive(true);
         _currentPlatform = _firstPlatform;
         TransformPlatformOnAxis(true, CalculateOffsetForPlatformsPosition(), 0);
-    }
-
-    public void StartGame()
-    {
-
     }
 
     private void OnPlayerHasLandedOnPlatform(int bonusScore)
