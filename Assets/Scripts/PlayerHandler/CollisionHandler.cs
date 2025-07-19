@@ -12,6 +12,7 @@ public class CollisionHandler : MonoBehaviour
     {
         if (collision.collider.TryGetComponent(out Platform platform)) _isGrounded = true;
         _player.SoundController.PlaySound(SoundName.Landing.ToString());
+        _player.JumpHandler.OnPlayerIsLanded();
 
         if (collision.collider.TryGetComponent(out Floor floor))
             _player.SoundController.PlaySound(SoundName.FallingOnTheFloor.ToString());

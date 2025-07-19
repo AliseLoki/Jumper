@@ -20,6 +20,15 @@ public class JumpHandler : MonoBehaviour
 
     public event Action<float> JumpPowerChanged;
 
+    public Action OnPrepareJump;
+    public Action OnJump;
+    public Action OnLand;
+    public Action OnDrop;
+
+    public float GetCurrentPower => _jumpPower;
+
+    public float GetMaxJumpPower => _maxJumpPower;
+
     public void IncreaseJumpPower()
     {
         if (_player.CollisionHandler.IsGrounded)
@@ -31,14 +40,21 @@ public class JumpHandler : MonoBehaviour
     public void Jump()
     {
         if (_player.CollisionHandler.IsGrounded)
-        {
+        {          
             if (_player.IsJumpingOnAxisX) JumpDefault(_jumpPower, 0);
             else JumpDefault(0, _jumpPower);
         }
     }
 
+    public void OnPlayerIsLanded()
+    {
+        OnLand?.Invoke();
+    }
+
     private void JumpDefault(float jumpPowerX, float jumpPowerZ)
     {
+        OnJump?.Invoke();
+
         transform.DOJump(new Vector3(transform.position.x + jumpPowerX, transform.position.y,
             transform.position.z + jumpPowerZ), _jumpHeight, NumJumps, _duration);
         if (_coroutine != null) StopCoroutine(_coroutine);
@@ -50,6 +66,7 @@ public class JumpHandler : MonoBehaviour
         while (!Input.GetMouseButtonUp(0))
         {
             _player.SoundController.PlaySound(SoundName.JumpPowerUp.ToString());
+            OnPrepareJump?.Invoke();
 
             for (int i = _minJumpPower; i <= _maxJumpPower; i++)
             {

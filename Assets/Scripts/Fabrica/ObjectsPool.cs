@@ -42,7 +42,7 @@ public class ObjectsPool : MonoBehaviour
         if (prefab as Platform)
         {
             var newPlatform = Create(pool, prefab);
-            CreatePlatformView(newPlatform.transform);
+           // CreatePlatformView(newPlatform.transform);
             return newPlatform;
         }
         else
@@ -72,7 +72,8 @@ public class ObjectsPool : MonoBehaviour
         for (int i = 0; i < _amountToPool; i++)
         {
             platform = Create(pool, prefab);
-            CreatePlatformView(platform.transform);
+
+           // CreatePlatformView(platform.transform);
         }
     }
 
