@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ViewHandler _viewHandler;
 
     private bool _isJumpingOnAxisX = true;
-
+   
     public event Action CollectablesAmountChanged;
 
     public bool IsJumpingOnAxisX => _isJumpingOnAxisX;
@@ -26,8 +26,10 @@ public class Player : MonoBehaviour
 
     public SoundController SoundController => _soundController;
 
+    public ShopView ShopView => _shopView;
+
     private void OnDisable()
-    {
+    {      
         _platformsController.PlatformHasSpawnedOnAxisX -= OnPlatformSpawned;
         _shopView.PlayerViewChanged -= OnPlayerViewChanged;
     }

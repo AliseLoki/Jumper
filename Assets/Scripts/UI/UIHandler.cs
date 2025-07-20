@@ -2,12 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class UIHandler : MonoBehaviour
 {
     [SerializeField] private SoundController _soundController;
     [SerializeField] private ShopView _shopView;
-   
+
     [SerializeField] private TMP_Text _diamondsAmountText;
     [SerializeField] private TMP_Text _scoreText;
     [SerializeField] private Image _jumpPowerScaleImage;
@@ -20,9 +21,6 @@ public class UIHandler : MonoBehaviour
     [SerializeField] float _minValue = 3;
     [SerializeField] float _divider = 10;
 
-    private int _diamonds;
-    // создать глобал дата, где хранить данные алмазов, счета, открытых вьюшек
-    // выключить магазин
     private void OnDisable()
     {
         _player.CollectablesAmountChanged -= OnCollectablesAmountChanged;
@@ -40,6 +38,7 @@ public class UIHandler : MonoBehaviour
 
     public void StartGame()
     {
+        ShowNewValue(_diamondsAmountText,YG2.saves.DiamondsAmount);
         SetJumpPowerScaleAmount(0);
         _restartButton.onClick.AddListener(OnRestartButtonPressed);
         _player.CollectablesAmountChanged += OnCollectablesAmountChanged;
@@ -49,6 +48,7 @@ public class UIHandler : MonoBehaviour
 
     private void OnRestartButtonPressed()
     {
+        YG2.InterstitialAdvShow();
         SceneManager.LoadScene(0);
     }
 
@@ -58,13 +58,15 @@ public class UIHandler : MonoBehaviour
     }
 
     private void OnCollectablesAmountChanged()
-    {
-        _diamonds++;
-        ShowNewValue(_diamondsAmountText, _diamonds);
+    {// вынести в отдельный метод и класс
+        YG2.saves.DiamondsAmount++;
+        YG2.SaveProgress();
+        ShowNewValue(_diamondsAmountText, YG2.saves.DiamondsAmount);
     }
 
     private void OnScoreChanged(int score)
     {
+        YG2.SetLeaderboard("leaderboard",score);
         ShowNewValue(_scoreText, score);
     }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1734719446696834045}
   - component: {fileID: 4445800156323740534}
   - component: {fileID: -3087070339874076632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 2757097888639272203}
   - component: {fileID: 2293923579420941733}
   - component: {fileID: 8590245243863520442}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4942,7 +4942,7 @@ GameObject:
   - component: {fileID: 1599076654278771565}
   - component: {fileID: 2422606934695152840}
   - component: {fileID: 466724415316948994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5029,7 +5029,7 @@ GameObject:
   - component: {fileID: 5407218679307781125}
   - component: {fileID: 5067796580996655713}
   - component: {fileID: 4992375423734632767}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5166,7 +5166,7 @@ GameObject:
   - component: {fileID: 89435186380147366}
   - component: {fileID: 7694229874093043937}
   - component: {fileID: 7905074195462068531}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5265,7 +5265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2359882420523522295}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ViewContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

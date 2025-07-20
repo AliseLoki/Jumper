@@ -6,12 +6,18 @@ public class InputController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _player.JumpHandler.IncreaseJumpPower();
+        if (!_player.ShopView.isActiveAndEnabled)
+        {
+            _player.JumpHandler.IncreaseJumpPower();
+        }
     }
 
     private void OnMouseUp()
     {
-        _player.SoundController.StopSound();
-        _player.JumpHandler.Jump();
+        if (!_player.ShopView.isActiveAndEnabled)
+        {
+            _player.SoundController.StopSound();
+            _player.JumpHandler.Jump();
+        }
     }
 }
